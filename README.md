@@ -22,8 +22,9 @@ Install extensions using npm on the Node.js command line
 Configure
 --
 
+change the elastic server IP address at line #35, host: '192.168.5.186',
 
 Launch Server
 --
 
-node server/index.js change the elastic server IP address at line #35, host: '192.168.5.186',
+node server/index.js 
