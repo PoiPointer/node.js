@@ -51,9 +51,13 @@ function PostCode (categories, bodyReq, response) {
             jsonResponse +=chunk ;
         }) ;
         res.on ('end', function () {
-            var jsc ;
+            var jsc, retj ={ type: 'FeatureCollection', features: [] } ;
             try {
                 jsc =JSON.parse (jsonResponse) ;
+                for ( var item in jsc.hits.hits ) {
+                    retj.features.push (jsc.hits.hits [item]._source) ;
+                }
+                jsonResponse =JSON.stringify (retj) ;
                 //console.log (jsc) ;
             } catch ( e ) {
                 // An error has occured, handle it, by e.g. logging it
