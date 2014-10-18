@@ -34,7 +34,7 @@ function PostCode (categories, bodyReq, response) {
     var post_options ={
         host: '127.0.0.1',
         port: '9200',
-        path: '/poipointer' + categories + '/_search',
+        path: '/poipointer' + categories + '/_search?size=50',
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
