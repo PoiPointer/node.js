@@ -55,6 +55,10 @@ function PostCode (categories, bodyReq, response) {
             try {
                 jsc =JSON.parse (jsonResponse) ;
                 for ( var item in jsc.hits.hits ) {
+                    var poi =jsc.hits.hits [item]._source ;
+                    poi.properties.url ="http://tempora-expo.be/img/p/37-412-thickbox.jpg" ;
+                    poi.properties.distance ="5km" ;
+                    poi.properties.time ="10min" ;
                     retj.features.push (jsc.hits.hits [item]._source) ;
                 }
                 jsonResponse =JSON.stringify (retj) ;
