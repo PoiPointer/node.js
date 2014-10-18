@@ -70,7 +70,7 @@ function PostCode (categories, bodyReq, response) {
             }
             //response.write (JSON.stringify (jsc)) ;
 
-            response.writeHead (200, { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": '*' }) ;
+            response.writeHead (200, { 'Content-Type': 'application/vnd.geo+json', "Access-Control-Allow-Origin": '*' }) ;
             response.write (jsonResponse) ; // , null, 3
             response.end () ;
         }) ;
@@ -96,7 +96,7 @@ http.createServer (function (request, response) {
         var units =params.units || 'metric' ; // 'imperial ' ;
         gm.distance (params.origin, params.destination, function (err, data) {
                 //console.log (data) ;
-                response.writeHead (200, { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": '*' }) ;
+                response.writeHead (200, { 'Content-Type': 'application/vnd.geo+json', "Access-Control-Allow-Origin": '*' }) ;
                 response.write (JSON.stringify (data)) ;
 				response.end () ;
                 //for ( var attributename in data ) {
