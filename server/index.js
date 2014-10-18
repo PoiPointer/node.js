@@ -5,14 +5,14 @@ var fs =require ("fs") ;
 var requestLib =require ('request') ;
 var gm =require ('googlemaps') ;
 var util =require ('util') ;
-var elasticsearch =require ('elasticsearch') ;
+//var elasticsearch =require ('elasticsearch') ;
 
 // https://github.com/moshen/node-googlemaps
 var GOOGLE_MAP_DISTANCE ="https://maps.googleapis.com/maps/api/distancematrix/output"
 var MYKEY ="918108961534-r5dknljt9qk8fl9ovo1ntdp3qqipl719.apps.googleusercontent.com" ;
 var MYSECRET ="at-kx3oJSjYrkeJ7rDySPu09" ;
 
-var elasticSearch ='http://192.168.5.186:9200/poipointer/_search' ;
+//var elasticSearch ='http://192.168.5.186:9200/poipointer/_search' ;
 
 var port =process.argv [2] || 8888 ;
 console.log ('Starting server @ http://localhost:' + port + '/') ;
@@ -72,9 +72,7 @@ http.createServer (function (request, response) {
         //  util.puts (JSON.stringify (data)) ;
         //}) ;
         //gm.distance ('48.3421719,-4.7131939', '48.3397471,-4.7157371', function (err, data) {
-        var units ='metric' ;
-        if ( !!('units' in params) )
-            units =params.units ; //'imperial ' ;
+        var units =params.units || 'metric' ; // 'imperial ' ;
         gm.distance (params.origin, params.destination, function (err, data) {
                 console.log (data) ;
                 //util.puts (JSON.stringify (data)) ;
@@ -91,31 +89,30 @@ http.createServer (function (request, response) {
         ) ;
         return ;
 	}
-    if ( uri == '/search' ) {
+    if ( uri == '/poi' ) {
         var params =url.parse (request.url, true).query ;
         var lat =parseFloat (params.origin.split (',') [0]) ;
         var long =parseFloat (params.origin.split (',') [1]) ;
+        var range =params.range || '1km' ;
         var bodySearch ={
             query: {
                 filtered: {
                     filter: {
                         geo_distance: {
-                            distance: '1km',
+                            distance: range,
                             'geometry.coordinates': [ long, lat ]
                         }
                     }
                 }
             }
         }     ;       
-        var categories ='' ;
-        if ( !!('cat' in params) )
-            categories ='/' + params.cat ; // '/museum' ;
+        var categories ='/' + (params.cat || '') ; // '/museum', '/museum,theatre' ;
         PostCode (categories, bodySearch, response) ;
         return ;
     }
 	
 	var filename =path.join (process.cwd (), uri) ;
-	console.log (filename) ;
+	//console.log (filename) ;
 
 	fs.exists (filename, function (exists) {
 		if ( !exists ) {
