@@ -34,15 +34,20 @@ Queries
 --
 
 http://localhost:8888/distance?origin=LONG,LAT&destination=LONG,LAT[&units=metric|imperial]
+
 default is metric
+
 
 http://localhost:8888/distance?origin=50.7972419,4.3991661&destination=50.8333589,4.3943596&units=imperial
 * units is either metric or imperial, and is optional
 * origin and destination is the googlemap way lat,long
 
 http://localhost:8888/poi?origin=LONG,LAT[&range=DISTANCE][&cat=CATEGORIES]
+
 range is 1km, 500
+
 categories is , separated list of categories
+
 
 http://localhost:8888/poi?origin=50.7972419,4.3991661&cat=museum
 * cat is optional, and string formated with , for multiple categories
