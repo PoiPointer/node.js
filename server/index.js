@@ -116,6 +116,17 @@ http.createServer (function (request, response) {
         var long =parseFloat (params.origin.split (',') [1]) ;
         var range =params.range || '1km' ;
         var bodySearch ={
+        	  sort : [
+        {
+            _geo_distance : {
+                'geometry.coordinates' : [long,lat],
+                order : 'asc',
+                unit : 'km',
+                mode : 'min'',
+                distance_type : 'sloppy_arc'
+            }
+        }
+    ],
             query: {
                 filtered: {
                     filter: {
