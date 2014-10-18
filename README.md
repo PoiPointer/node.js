@@ -38,6 +38,7 @@ Queries
   * origin and destination is the googlemap way lat,long
 
   http://localhost:8888/distance?origin=50.7972419,4.3991661&destination=50.8333589,4.3943596
+  
   http://localhost:8888/distance?origin=50.7972419,4.3991661&destination=50.8333589,4.3943596&units=imperial
 
 * http://localhost:8888/poi?origin=LONG,LAT[&range=DISTANCE][&cat=CATEGORIES]
@@ -46,7 +47,11 @@ Queries
   * origin is the googlemap way lat,long
   
   http://localhost:8888/poi?origin=50.7972419,4.3991661
+
   http://localhost:8888/poi?origin=50.7972419,4.3991661&range=3km
+  
   http://localhost:8888/poi?origin=50.7972419,4.3991661&range=5km&cat=museum
+  
   http://localhost:8888/poi?origin=50.7972419,4.3991661&cat=museum
+  
   http://localhost:8888/poi?origin=50.7972419,4.3991661&cat=museum,theatre
