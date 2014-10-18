@@ -122,7 +122,7 @@ http.createServer (function (request, response) {
                 'geometry.coordinates' : [long,lat],
                 order : 'asc',
                 unit : 'km',
-                mode : 'min'',
+                mode : 'min',
                 distance_type : 'sloppy_arc'
             }
         }
