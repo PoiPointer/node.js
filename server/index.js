@@ -32,7 +32,7 @@ function PostCode (categories, bodyReq, response) {
 
     // An object of options to indicate where to post to
     var post_options ={
-        host: '192.168.5.186', //'127.0.0.1',
+        host: '127.0.0.1',
         port: '9200',
         path: '/poipointer' + categories + '/_search',
         method: 'POST',
