@@ -38,6 +38,7 @@ http://localhost:8888/distance?origin=LONG,LAT&destination=LONG,LAT[&units=metri
 default is metric
 
 
+http://localhost:8888/distance?origin=50.7972419,4.3991661&destination=50.8333589,4.3943596
 http://localhost:8888/distance?origin=50.7972419,4.3991661&destination=50.8333589,4.3943596&units=imperial
 * units is either metric or imperial, and is optional
 * origin and destination is the googlemap way lat,long
@@ -49,6 +50,10 @@ range is 1km, 500
 categories is , separated list of categories
 
 
+http://localhost:8888/poi?origin=50.7972419,4.3991661
+http://localhost:8888/poi?origin=50.7972419,4.3991661&range=3km
+http://localhost:8888/poi?origin=50.7972419,4.3991661&range=5km&cat=museum
 http://localhost:8888/poi?origin=50.7972419,4.3991661&cat=museum
+http://localhost:8888/poi?origin=50.7972419,4.3991661&cat=museum,theatre
 * cat is optional, and string formated with , for multiple categories
 * origin is the googlemap way lat,long
