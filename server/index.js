@@ -32,7 +32,7 @@ function PostCode (categories, bodyReq, response) {
 
     // An object of options to indicate where to post to
     var post_options ={
-        host: '127.0.0.1',
+        host: '192.168.5.186', //'127.0.0.1',
         port: '9200',
         path: '/poipointer' + categories + '/_search',
         method: 'POST',
@@ -43,14 +43,26 @@ function PostCode (categories, bodyReq, response) {
     } ;
 
     // Set up the request
+    var jsonResponse ='' ;
     var post_req =http.request (post_options, function (res) {
-    res.setEncoding('utf8');
+        res.setEncoding('utf8');
         res.on ('data', function (chunk) {
-            console.log ('Response: ' + chunk) ;
-            //var jsc =JSON.parse (chunk) ;
-            //console.log (jsc.hits) ;
+            //console.log ('Response: ' + chunk) ;
+            jsonResponse +=chunk ;
+        }) ;
+        res.on ('end', function () {
+            var jsc ;
+            try {
+                jsc =JSON.parse (jsonResponse) ;
+                //console.log (jsc) ;
+            } catch ( e ) {
+                // An error has occured, handle it, by e.g. logging it
+                console.log (e) ;
+            }
             //response.write (JSON.stringify (jsc)) ;
-            response.write (chunk) ;
+
+            response.writeHead (200, { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": '*' }) ;
+            response.write (jsonResponse) ; // , null, 3
             response.end () ;
         }) ;
     }) ;
@@ -74,8 +86,8 @@ http.createServer (function (request, response) {
         //gm.distance ('48.3421719,-4.7131939', '48.3397471,-4.7157371', function (err, data) {
         var units =params.units || 'metric' ; // 'imperial ' ;
         gm.distance (params.origin, params.destination, function (err, data) {
-                console.log (data) ;
-                //util.puts (JSON.stringify (data)) ;
+                //console.log (data) ;
+                response.writeHead (200, { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": '*' }) ;
                 response.write (JSON.stringify (data)) ;
 				response.end () ;
                 //for ( var attributename in data ) {
